@@ -1,7 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+	_ "net/http/pprof"
+	"pwm-backend/server"
+)
 
 func main() {
-	fmt.Println("Hello world")
+	go func() {
+		http.ListenAndServe(":8081", nil)
+	}()
+
+	err := server.Run()
+	if err != nil {
+		fmt.Println(err)
+	}
 }
